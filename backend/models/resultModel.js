@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const responseSchema = new Schema({
   question: { type: String, required: true },
-  answer: { type: Number, required: true },
+  answer: { type: Schema.Types.Mixed, required: true },
+  questionType: { type: String, required: true },
 });
 
 const resultsSchema = new Schema(

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 const { Schema } = mongoose;
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
   {
@@ -36,18 +37,16 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.methods.verifyAdminKey = function (enteredAdminKey) {
-  if (+enteredAdminKey === +process.env.ADMIN_KEY) {
-    this.isAdmin = true;
-  }
-};
-
 // Method to generate a JWT for the user
-// userSchema.methods.generateToken = function () {
-//   return jwt.sign({ id: this._id, isAdmin: this.isAdmin }, process.env.JWT_SECRET, {
-//     expiresIn: '30d',
-//   });
-// };
+userSchema.methods.generateToken = function () {
+  return jwt.sign(
+    { id: this._id, isAdmin: this.isAdmin },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "30d",
+    }
+  );
+};
 
 const User = mongoose.model("User", userSchema, "users");
 
