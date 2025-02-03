@@ -19,7 +19,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    isAdmin: adminKey ? adminKey === process.env.ADMIN_KEY : false,
+    isAdmin: adminKey ? +adminKey === +process.env.ADMIN_KEY : false,
   });
 
   if (user) {

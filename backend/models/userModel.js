@@ -13,7 +13,6 @@ const userSchema = new Schema(
     },
     password: { type: String, required: [true, "Please add a password"] },
     isAdmin: { type: Boolean, default: false },
-    adminKey: { type: Number },
   },
   { timestamps: true }
 );
