@@ -9,6 +9,7 @@ const responseSchema = new Schema({
 
 const resultsSchema = new Schema(
   {
+    title: { type: String, required: true },
     type: { type: String, required: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,

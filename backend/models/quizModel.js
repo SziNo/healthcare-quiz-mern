@@ -9,6 +9,7 @@ const questionSchema = new Schema({
 
 const quizSchema = new Schema(
   {
+    title: { type: String, required: true },
     type: { type: String, required: true }, // 'general', 'plastic', 'dentist'
     questions: [questionSchema],
   },

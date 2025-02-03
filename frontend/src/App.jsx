@@ -1,8 +1,9 @@
-import React from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Navbar from "./layout/navbar";
 import { Admin, Register, Login } from "@/pages";
+import { checkTokenExpiration } from "@/utils/auth";
 import "./index.css";
 
 const Home = () => (
@@ -14,6 +15,10 @@ const Home = () => (
 );
 
 const App = () => {
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   return (
     <>
       <Navbar />

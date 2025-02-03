@@ -5,10 +5,10 @@ import asyncHandler from "express-async-handler";
 // @route   POST /api/results
 // @access  Public (Logged in users)
 export const saveResults = asyncHandler(async (req, res) => {
-  const { type, responses } = req.body;
+  const { title, type, responses } = req.body;
   const user = req.user._id;
 
-  const result = new Result({ type, user, responses });
+  const result = new Result({ title, type, user, responses });
   await result.save();
 
   res.status(201).json({ message: "Results saved successfully", result });

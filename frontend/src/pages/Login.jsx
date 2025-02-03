@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormField,
@@ -27,18 +28,24 @@ const Login = () => {
 
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
   const setIsAdmin = useStore((state) => state.setIsAdmin);
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       console.log("Login successful:", data);
 
+      // Save the token to localStorage
       localStorage.setItem("token", data.token);
 
+      // Update Zustand store
       setIsLoggedIn(true);
       setIsAdmin(data.isAdmin);
 
+      // Reset the form
       form.reset();
+
+      data.isAdmin ? navigate("/admin") : navigate("/");
     },
     onError: (error) => {
       console.error("Login failed:", error);

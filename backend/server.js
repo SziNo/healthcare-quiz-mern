@@ -1,9 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
-import quizRoutes from "./routes/quizRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import resultsRoutes from "./routes/resultsRoutes.js";
+import { quizRoutes, userRoutes, resultsRoutes } from "./routes/index.js";
 import cors from "cors";
 
 dotenv.config();

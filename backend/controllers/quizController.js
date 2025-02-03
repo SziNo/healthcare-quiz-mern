@@ -32,7 +32,7 @@ export const getQuizzesByType = asyncHandler(async (req, res) => {
 // @route   POST /api/quizzes/add-quiz
 // @access  Private/Admin
 export const addQuizType = asyncHandler(async (req, res) => {
-  const { type } = req.body;
+  const { title, type } = req.body;
 
   const existingQuiz = await Quiz.findOne({ type });
   if (existingQuiz) {
@@ -40,7 +40,7 @@ export const addQuizType = asyncHandler(async (req, res) => {
     throw new Error("Quiz type already exists");
   }
 
-  const quiz = new Quiz({ type, questions: [] });
+  const quiz = new Quiz({ title, type, questions: [] });
   await quiz.save();
 
   res.status(201).json({ message: "Quiz type added successfully", quiz });
