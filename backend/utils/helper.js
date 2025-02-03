@@ -1,5 +1,6 @@
 export const quizzes = [
   {
+    title: "Fogorvos",
     type: "dentist",
     questions: [
       {
@@ -41,6 +42,7 @@ export const quizzes = [
     ],
   },
   {
+    title: "Plasztikai sebészet",
     type: "plastic",
     questions: [
       {
@@ -78,6 +80,7 @@ export const quizzes = [
     ],
   },
   {
+    title: "Általános ellátás",
     type: "general",
     questions: [
       {
@@ -123,32 +126,3 @@ export const quizzes = [
     ],
   },
 ];
-
-// const calculateStatistics = async (quizType) => {
-//   const submissions = await SubmittedQuiz.find({ type: quizType });
-
-//   const statistics = {};
-
-//   submissions.forEach((submission) => {
-//     submission.responses.forEach((response) => {
-//       if (!statistics[response.question]) {
-//         statistics[response.question] = [];
-//       }
-//       statistics[response.question].push(response.answer);
-//     });
-//   });
-
-//   const statsArray = Object.keys(statistics).map((question) => {
-//     const answers = statistics[question];
-//     const total = answers.reduce((sum, answer) => sum + answer, 0);
-//     const average = total / (answers.length || 1);
-//     return { question, average };
-//   });
-
-//   return statsArray;
-// };
-
-// // Example usage
-// calculateStatistics("dentist").then((stats) => {
-//   console.log(stats);
-// });

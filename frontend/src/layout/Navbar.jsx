@@ -15,7 +15,7 @@ const Navbar = () => {
           {isAdmin && (
             <Link
               to="/admin"
-              className="uppercase text-xs sm:text-sm text-green-700 font-bold hover:text-red-600 hover:underline transition duration-300 ease-in-out"
+              className="uppercase text-xs sm:text-sm text-red-700 font-bold hover:text-green-600 hover:underline transition duration-300 ease-in-out"
             >
               admin felület
             </Link>

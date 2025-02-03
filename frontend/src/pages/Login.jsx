@@ -45,7 +45,7 @@ const Login = () => {
       // Reset the form
       form.reset();
 
-      data.isAdmin ? navigate("/admin") : navigate("/");
+      navigate("/");
     },
     onError: (error) => {
       console.error("Login failed:", error);
