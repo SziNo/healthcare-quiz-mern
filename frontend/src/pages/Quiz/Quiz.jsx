@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import QuizRadioField from "./QuizRadioField";
 import { Button } from "@/components/ui/button";
 import { getQuizByType } from "@/api/quizApi";
+import { saveResults } from "@/api/resultsApi";
 
 const Quiz = () => {
   const { type } = useParams();
   const [responses, setResponses] = useState([]);
   const defaultValue = "3";
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["quiz", type],
@@ -38,6 +40,17 @@ const Quiz = () => {
     });
   };
 
+  const mutation = useMutation({
+    mutationFn: saveResults,
+    onSuccess: (data) => {
+      console.log("Results saved successfully:", data);
+      navigate("/thank-you"); // Replace with the desired route
+    },
+    onError: (error) => {
+      console.error("Failed to save results:", error);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (data?.length > 0) {
@@ -65,8 +78,7 @@ const Quiz = () => {
         results,
       };
 
-      console.log(payload);
-      // Send payload to the backend or handle it accordingly
+      mutation.mutate(payload);
     }
   };
 
@@ -95,9 +107,15 @@ const Quiz = () => {
           />
         ))}
 
-        <Button type="submit" className="my-6">
-          Elküldés
+        <Button type="submit" className="my-6" disabled={mutation.isLoading}>
+          {mutation.isLoading ? "Saving..." : "Submit"}
         </Button>
+
+        {mutation.isError && (
+          <div className="text-red-500 mt-4">
+            Error saving results: {mutation.error.message}
+          </div>
+        )}
       </form>
     </div>
   );
