@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormField,
@@ -19,6 +20,8 @@ import { registerUser } from "@/api/userApi";
 
 const Register = () => {
   const [role, setRole] = useState("patient");
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -30,7 +33,6 @@ const Register = () => {
     },
   });
 
-  // Need this, because Admin Key field conditionally renders
   const adminKeyValue = useWatch({
     control: form.control,
     name: "adminKey",
@@ -42,10 +44,10 @@ const Register = () => {
     onSuccess: (data) => {
       console.log("Registration successful:", data);
       form.reset();
+      navigate("/login");
     },
     onError: (error) => {
       console.error("Registration failed:", error);
-
       const errorMessage = error.response?.data?.message || error.message;
       console.error("Error details:", errorMessage);
     },
@@ -59,7 +61,6 @@ const Register = () => {
   const onSubmit = (data) => {
     const { confirmPassword, ...filteredData } = data;
     filteredData.adminKey = adminKeyValue;
-
     mutation.mutate(filteredData);
   };
 

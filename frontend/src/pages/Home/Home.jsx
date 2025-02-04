@@ -7,9 +7,9 @@ const Home = () => {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   return (
-    <div className="min-h-screen container mx-auto px-4 py-8">
+    <div className="min-h-[calc(100vh-5rem)] bg-gray-100 mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">
-        Üdvözöljük a Lightware Betegelégedettségi Kérdőív Platformján
+        Üdvözöljük a BizKit Express Betegelégedettségi Kérdőív Platformján
       </h1>
       <p className="mb-6">
         Ez az oldal lehetőséget nyújt, hogy kitölthesse az intézményünk által
