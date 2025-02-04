@@ -7,7 +7,7 @@ const Home = () => {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] bg-gray-100 mx-auto px-4 py-8">
+    <div className="min-h-[calc(100vh-8rem)] bg-gray-100 mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">
         Üdvözöljük a BizKit Express Betegelégedettségi Kérdőív Platformján
       </h1>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./layout/Navbar";
+import { Navbar, Footer } from "./layout";
 import { Admin, Register, Login, Home, Quiz, ThankYou } from "@/pages";
 import { checkTokenExpiration } from "@/utils/auth";
 import "./index.css";
@@ -21,6 +21,7 @@ const App = () => {
         <Route path="/quiz/:type" element={<Quiz />} />
         <Route path="/thank-you" element={<ThankYou />} />
       </Routes>
+      <Footer />
     </>
   );
 };

@@ -95,7 +95,7 @@ const Quiz = () => {
   }
 
   return (
-    <div className="h-[90vh] p-4">
+    <div className="min-h-[calc(100vh-8rem)] p-4">
       <form onSubmit={handleSubmit}>
         <h2 className="text-2xl py-6">{data[0].title}</h2>
 

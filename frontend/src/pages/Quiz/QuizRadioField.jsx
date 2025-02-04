@@ -8,7 +8,7 @@ const QuizRadioField = ({ question, onValueChange }) => {
   };
 
   return (
-    <div className="p-2 bg-gray-100 odd:bg-white even:bg-gray-50">
+    <div className="px-2 py-4 bg-gray-100 odd:bg-white even:bg-gray-50 shadow-md">
       <Label className="block mb-2 md:mb-4 italic text-lg">
         {question.question}
       </Label>

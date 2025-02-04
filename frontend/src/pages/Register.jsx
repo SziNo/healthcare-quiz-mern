@@ -65,7 +65,7 @@ const Register = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-[calc(100vh-8rem)] mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">
         A betegelégedettségi kérdőív kitöltéséhez kérem regisztráljon itt!
       </h1>
@@ -104,7 +104,7 @@ const Register = () => {
                     placeholder="Adja meg az email címét"
                     {...field}
                     onBlur={() => form.trigger("email")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
@@ -124,7 +124,7 @@ const Register = () => {
                     placeholder="Adja meg a nevét"
                     {...field}
                     onBlur={() => form.trigger("name")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
@@ -151,7 +151,7 @@ const Register = () => {
                     placeholder="Adja meg 6 karakterből álló jelszavát"
                     {...field}
                     onBlur={() => form.trigger("password")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
@@ -177,7 +177,7 @@ const Register = () => {
                     placeholder="Erősítse meg a jelszavát"
                     {...field}
                     onBlur={() => form.trigger("confirmPassword")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
@@ -196,7 +196,7 @@ const Register = () => {
                     <Input
                       placeholder="Adja meg a 4 számjegyű admin kulcsát"
                       {...field}
-                      className="w-full lg:w-1/3"
+                      className="w-full sm:w-1/3"
                     />
                   </FormControl>
                   <FormMessage />

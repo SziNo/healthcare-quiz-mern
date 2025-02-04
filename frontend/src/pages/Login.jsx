@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-[calc(100vh-8rem)] mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Jelentkezzen be itt!</h1>
 
       <Form {...form}>
@@ -77,7 +77,7 @@ const Login = () => {
                     placeholder="Adja meg az email címét"
                     {...field}
                     onBlur={() => form.trigger("email")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,7 +104,7 @@ const Login = () => {
                     placeholder="Adja meg 6 karakterből álló jelszavát"
                     {...field}
                     onBlur={() => form.trigger("password")}
-                    className="w-full lg:w-1/3"
+                    className="w-full sm:w-1/3"
                   />
                 </FormControl>
                 <FormMessage />
