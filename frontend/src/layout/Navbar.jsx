@@ -2,6 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useStore from "@/store/zustandStore";
 import useAuth from "@/hooks/useAuth";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
@@ -9,8 +17,9 @@ const Navbar = () => {
   const { logout } = useAuth();
 
   return (
-    <nav className="bg-white shadow-md ">
+    <nav className="bg-white shadow-md">
       <div className="mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+        {/* Left Side: Logo and Admin Link */}
         <div className="flex items-center space-x-4">
           <Link to="/">
             <img
@@ -20,40 +29,68 @@ const Navbar = () => {
             />
           </Link>
           {isAdmin && (
-            <Link
-              to="/admin"
-              className="uppercase text-xs sm:text-sm text-red-700 font-bold hover:text-green-600 hover:underline transition duration-300 ease-in-out"
-            >
-              admin felület
-            </Link>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "uppercase text-xs sm:text-sm hover:text-slate-600 transition duration-300 ease-in-out"
+                    )}
+                  >
+                    <Link to="/admin">admin felület</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           )}
         </div>
-        <div className="nav-links flex space-x-4 sm:space-x-8">
-          {!isLoggedIn ? (
-            <>
-              <Link
-                to="/register"
-                className="uppercase text-xs sm:text-sm text-gray-700 font-bold hover:text-blue-600 hover:underline transition duration-300 ease-in-out"
-              >
-                regisztráció
-              </Link>
-              <Link
-                to="/login"
-                className="uppercase text-xs sm:text-sm text-gray-700 font-bold hover:text-blue-600 hover:underline transition duration-300 ease-in-out"
-              >
-                bejelentkezés
-              </Link>
-            </>
-          ) : (
-            <Link
-              to="/"
-              className="uppercase text-xs sm:text-sm text-gray-700 font-bold hover:text-blue-600 hover:underline transition duration-300 ease-in-out"
-              onClick={logout}
-            >
-              kijelentkezés
-            </Link>
-          )}
-        </div>
+
+        {/* Right Side: Auth Links */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            {!isLoggedIn ? (
+              <>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "uppercase text-xs sm:text-sm hover:text-slate-600 transition duration-300 ease-in-out"
+                    )}
+                  >
+                    <Link to="/register">regisztráció</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "uppercase text-xs sm:text-sm hover:text-slate-600 transition duration-300 ease-in-out"
+                    )}
+                  >
+                    <Link to="/login">bejelentkezés</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </>
+            ) : (
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "uppercase text-xs sm:text-sm hover:text-slate-600 transition duration-300 ease-in-out"
+                  )}
+                  onClick={logout}
+                >
+                  <Link to="/">kijelentkezés</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
     </nav>
   );
