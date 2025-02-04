@@ -11,7 +11,6 @@ export const getAllQuizzes = async () => {
 export const getQuizByType = async (type) => {
   try {
     const response = await axios.get(`${url}/api/quizzes/${type}`);
-    console.log("API Response:", response.data); // Debugging line
     return response.data;
   } catch (error) {
     console.error("Error fetching quiz by type:", error);
