@@ -35,28 +35,24 @@ const Login = () => {
     onSuccess: (data) => {
       console.log("Login successful:", data);
 
-      // Save the token to localStorage
       localStorage.setItem("token", data.token);
 
-      // Update Zustand store
       setIsLoggedIn(true);
       setIsAdmin(data.isAdmin);
 
-      // Reset the form
       form.reset();
 
       navigate("/");
     },
     onError: (error) => {
       console.error("Login failed:", error);
-      // Display a more specific error message if available
+
       const errorMessage = error.response?.data?.message || error.message;
       console.error("Error details:", errorMessage);
     },
   });
 
   const onSubmit = (data) => {
-    // Use the mutation to send the data
     mutation.mutate(data);
   };
 

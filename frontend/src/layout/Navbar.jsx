@@ -9,9 +9,16 @@ const Navbar = () => {
   const { logout } = useAuth();
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto p-4 flex justify-between items-center">
-        <div className="admin-area">
+    <nav className="bg-white shadow-md ">
+      <div className="mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <Link to="/">
+            <img
+              src="/red-cross.ico"
+              alt="Home"
+              className="h-8 w-8 transition-transform transform hover:scale-95"
+            />
+          </Link>
           {isAdmin && (
             <Link
               to="/admin"

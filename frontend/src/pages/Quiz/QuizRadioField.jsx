@@ -4,37 +4,38 @@ import { Label } from "@/components/ui/label";
 
 const QuizRadioField = ({ question, onValueChange }) => {
   const handleRatingChange = (value) => {
-    onValueChange(question.id, value);
+    onValueChange(question._id, value);
   };
 
   return (
     <div className="p-2 bg-gray-100 odd:bg-white even:bg-gray-50">
-      <Label className="block mb-2 md:mb-4 underline text-lg">
-        {question.text}
+      <Label className="block mb-2 md:mb-4 italic text-lg">
+        {question.question}
       </Label>
       <RadioGroup
+        defaultValue="3"
         onValueChange={handleRatingChange}
         className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0"
       >
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="1" id={`rating-1-${question.id}`} />
-          <Label htmlFor={`rating-1-${question.id}`}>Elfogadhatatlan</Label>
+          <RadioGroupItem value="1" id={`rating-1-${question._id}`} />
+          <Label htmlFor={`rating-1-${question._id}`}>Elfogadhatatlan</Label>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="2" id={`rating-2-${question.id}`} />
-          <Label htmlFor={`rating-2-${question.id}`}>Megfelelőtlen</Label>
+          <RadioGroupItem value="2" id={`rating-2-${question._id}`} />
+          <Label htmlFor={`rating-2-${question._id}`}>Megfelelőtlen</Label>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="3" id={`rating-3-${question.id}`} />
-          <Label htmlFor={`rating-3-${question.id}`}>Átlagos</Label>
+          <RadioGroupItem value="3" id={`rating-3-${question._id}`} />
+          <Label htmlFor={`rating-3-${question._id}`}>Átlagos</Label>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="4" id={`rating-4-${question.id}`} />
-          <Label htmlFor={`rating-4-${question.id}`}>Megfelelő</Label>
+          <RadioGroupItem value="4" id={`rating-4-${question._id}`} />
+          <Label htmlFor={`rating-4-${question._id}`}>Megfelelő</Label>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="5" id={`rating-5-${question.id}`} />
-          <Label htmlFor={`rating-5-${question.id}`}>Remek</Label>
+          <RadioGroupItem value="5" id={`rating-5-${question._id}`} />
+          <Label htmlFor={`rating-5-${question._id}`}>Remek</Label>
         </div>
       </RadioGroup>
     </div>

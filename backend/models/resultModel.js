@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const responseSchema = new Schema({
   question: { type: String, required: true },
-  answer: { type: Schema.Types.Mixed, required: true },
+  answer: { type: Schema.Types.Mixed, required: true }, // In this project we use only 'rating' type so the answer is always Number type, but with this we set the model up for other type of answers.
   questionType: { type: String, required: true },
 });
 
@@ -16,7 +16,7 @@ const resultsSchema = new Schema(
       ref: "User",
       required: true,
     },
-    responses: [responseSchema],
+    results: [responseSchema],
   },
   { timestamps: true }
 );

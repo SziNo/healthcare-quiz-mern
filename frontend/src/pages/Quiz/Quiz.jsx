@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import QuizRadioField from "./QuizRadioField";
 import { Button } from "@/components/ui/button";
+import { getQuizByType } from "@/api/quizApi";
 
 const Quiz = () => {
   const { type } = useParams();
   const [responses, setResponses] = useState([]);
+  const defaultValue = "3";
 
-  const questions = [
-    { id: 1, text: "Question 1" },
-    { id: 2, text: "Question 2" },
-    { id: 3, text: "Question 3" },
-    { id: 4, text: "Question 4" },
-    { id: 5, text: "Question 5" },
-    { id: 6, text: "Question 6" },
-  ];
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["quiz", type],
+    queryFn: () => getQuizByType(type),
+  });
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      const initialResponses = data[0].questions.map((question) => ({
+        id: question._id,
+        answer: defaultValue,
+      }));
+      setResponses(initialResponses);
+    }
+  }, [data]);
 
   const handleValueChange = (id, value) => {
     setResponses((prevResponses) => {
@@ -31,18 +40,56 @@ const Quiz = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., send responses to backend
-    console.log(responses);
+    if (data?.length > 0) {
+      if (data[0].questions.length !== responses.length) {
+        console.error("Mismatch in the number of questions and responses.");
+        return;
+      }
+
+      const results = data[0].questions.reduce((arr, questionObj) => {
+        const responseObj = responses.find((el) => el.id === questionObj._id);
+        if (responseObj) {
+          const newObj = {
+            question: questionObj.question,
+            answer: +responseObj.answer,
+            questionType: questionObj.type,
+          };
+          arr.push(newObj);
+        }
+        return arr;
+      }, []);
+
+      const payload = {
+        title: data[0].title,
+        type: data[0].type,
+        results,
+      };
+
+      console.log(payload);
+      // Send payload to the backend or handle it accordingly
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching quiz data: {error.message}</div>;
+  }
+
+  if (!data?.length || !data[0].questions) {
+    return <div>No quiz data available</div>;
+  }
 
   return (
     <div className="h-[90vh] p-4">
       <form onSubmit={handleSubmit}>
-        <h2 className="text-2xl py-6">Quiz Type: {type}</h2>
+        <h2 className="text-2xl py-6">{data[0].title}</h2>
 
-        {questions.map((question) => (
+        {data[0].questions.map((question) => (
           <QuizRadioField
-            key={question.id}
+            key={question._id}
             question={question}
             onValueChange={handleValueChange}
           />
