@@ -2,6 +2,6 @@ import Admin from "./Admin";
 import Register from "./register";
 import Login from "./login";
 import Home from "./Home/Home";
-import Quiz from "./Quiz";
+import Quiz from "./Quiz/Quiz";
 
 export { Admin, Register, Login, Home, Quiz };

@@ -41,12 +41,11 @@ const Register = () => {
     mutationFn: registerUser,
     onSuccess: (data) => {
       console.log("Registration successful:", data);
-      // Reset the form only on success
       form.reset();
     },
     onError: (error) => {
       console.error("Registration failed:", error);
-      // Display a more specific error message if available
+
       const errorMessage = error.response?.data?.message || error.message;
       console.error("Error details:", errorMessage);
     },
@@ -59,10 +58,8 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const { confirmPassword, ...filteredData } = data;
-    // Include adminKey in the submitted data
     filteredData.adminKey = adminKeyValue;
 
-    // Use the mutation to send the data
     mutation.mutate(filteredData);
   };
 
