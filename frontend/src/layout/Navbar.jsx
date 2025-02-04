@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="admin-area">
           {isAdmin && (
             <Link
