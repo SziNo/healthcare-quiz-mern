@@ -1,6 +1,6 @@
 import React from "react";
 import useStore from "@/store/zustandStore";
-import Quizzes from "./Quizzes/Quizzes";
+import Quizzes from "./Quizzes";
 import LoginOrRegisterMessage from "./LoginOrRegisterMessage";
 
 const Home = () => {

@@ -1,9 +1,8 @@
-import React from "react";
 import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const QuizCard = ({ title, type, imageUrl }) => {
+const CardComponent = ({ title, type, imageUrl, buttonText }) => {
   return (
     <Card className="flex flex-col p-2">
       <div className="w-full h-48 lg:h-60 overflow-hidden rounded-t-lg">
@@ -20,7 +19,7 @@ const QuizCard = ({ title, type, imageUrl }) => {
       <CardFooter>
         <Link to={`/quiz/${type}`} className="w-full">
           <Button variant="default" className="w-full">
-            Kérdőív kezdése
+            {buttonText}
           </Button>
         </Link>
       </CardFooter>
@@ -28,4 +27,4 @@ const QuizCard = ({ title, type, imageUrl }) => {
   );
 };
 
-export default QuizCard;
+export default CardComponent;

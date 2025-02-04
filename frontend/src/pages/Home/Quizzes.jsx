@@ -1,7 +1,6 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllQuizzes } from "@/api/quizApi";
-import QuizzesContainer from "./QuizzesContainer";
+import { CardContainer } from "@/shared";
 
 const Quizzes = () => {
   const { data, error, isLoading } = useQuery({
@@ -20,7 +19,7 @@ const Quizzes = () => {
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Kérdőívek</h2>
-      <QuizzesContainer quizzes={data} />
+      <CardContainer items={data} buttonText="Kérdőív kezdése" />
     </div>
   );
 };
