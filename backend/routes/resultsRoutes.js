@@ -8,6 +8,6 @@ import { admin, protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post("/save", protect, saveResults);
-router.delete("/delete", protect, admin, deleteAllResults);
+router.delete("/admin/delete", protect, admin, deleteAllResults);
 
 export default router;

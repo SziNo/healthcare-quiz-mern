@@ -1,4 +1,4 @@
 import CardContainer from "./CardContainer";
-import Card from "./Card";
+import CardComponent from "./CardComponent";
 
-export { CardContainer, Card };
+export { CardContainer, CardComponent };

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllQuizzes } from "@/api/quizApi";
 import { CardContainer } from "@/shared";
 
-const Quizzes = () => {
+const QuizQuestions = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["quizzes"],
     queryFn: getAllQuizzes,
@@ -18,10 +18,14 @@ const Quizzes = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Kérdőívek</h2>
-      <CardContainer items={data} buttonText="Kérdőív kezdése" path="/quiz" />
+      <h2 className="text-xl font-bold mb-4">Eredmények</h2>
+      <CardContainer
+        items={data}
+        buttonText="Kérdések megtekintése"
+        path="/admin/quiz"
+      />
     </div>
   );
 };
 
-export default Quizzes;
+export default QuizQuestions;
