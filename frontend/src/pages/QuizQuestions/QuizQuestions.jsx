@@ -94,13 +94,15 @@ const QuizQuestions = () => {
         >
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button
-                variant="destructive"
-                size="icon"
-                onClick={() => handleDeleteQuestion(question._id)}
-              >
-                <FaTrashAlt />
-              </Button>
+              <div className="w-8 h-8">
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  onClick={() => handleDeleteQuestion(question._id)}
+                >
+                  <FaTrashAlt className="w-full h-full" />
+                </Button>
+              </div>
             </AlertDialogTrigger>
             {deleteItem &&
               deleteItem.id === question._id &&
@@ -125,18 +127,27 @@ const QuizQuestions = () => {
                 </AlertDialogContent>
               )}
           </AlertDialog>
+
           <span className="flex-grow block font-semibold md:text-lg">
             {question.question}
           </span>
         </div>
       ))}
 
-      <section className="flex flex-col md:flex-row justify-around items-center mt-8 mb-4 space-y-4 md:space-y-0 md:space-x-4">
-        <div className="flex-1 flex justify-center">
+      <section className="flex flex-col md:flex-row justify-center md:justify-between items-start mt-8 mb-4 space-y-4 md:space-y-0 md:space-x-4">
+        <div className="flex-1 flex w-full">
           <AddNewQuestion type={type} />
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="flex-1 flex flex-col items-center md:items-start">
+          <h2 className="text-2xl font-bold mb-4">
+            {data[0].title} kérdőív végleges törlése
+          </h2>
+          <p className="mb-4 font-semibold md:text-left">
+            Ezzel véglegesen kitörlöd a kérdőívet és az összes hozzátartozó
+            kérdést! <br />
+            Ha biztos vagy benne, kattints a gombra!
+          </p>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button

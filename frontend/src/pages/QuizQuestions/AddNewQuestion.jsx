@@ -49,7 +49,7 @@ const AddNewQuestion = ({ type }) => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] mx-auto px-4 py-8">
+    <div className="mb-4 w-full sm:w-3/4 lg:w-2/3">
       <h1 className="text-2xl font-bold mb-4">Új kérdés hozzáadása</h1>
 
       <Form {...form}>
@@ -96,6 +96,7 @@ const AddNewQuestion = ({ type }) => {
             <Button
               type="submit"
               size="lg"
+              className="uppercase"
               disabled={addQuestionMutation.isLoading}
             >
               {addQuestionMutation.isLoading
