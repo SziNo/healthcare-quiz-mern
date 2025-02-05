@@ -83,6 +83,25 @@ export const addQuestion = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Question added successfully", quiz });
 });
 
+// @desc    Update a quiz
+// @route   PUT /api/quizzes/admin/update-quiz
+// @access  Private/Admin
+export const updateQuiz = asyncHandler(async (req, res) => {
+  const { id, title, type } = req.body;
+
+  const quiz = await Quiz.findById(id);
+  if (!quiz) {
+    res.status(404);
+    throw new Error("Quiz not found");
+  }
+
+  quiz.title = title;
+  quiz.type = type;
+  await quiz.save();
+
+  res.status(200).json({ message: "Quiz updated successfully", quiz });
+});
+
 // @desc    Update a question in a quiz
 // @route   PUT /api/quizzes/admin/update-question
 // @access  Private/Admin
