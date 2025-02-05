@@ -5,10 +5,7 @@ import asyncHandler from "express-async-handler";
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (req.headers?.authorization?.startsWith("Bearer")) {
     try {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -23,7 +20,7 @@ export const protect = asyncHandler(async (req, res, next) => {
 });
 
 export const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user?.isAdmin) {
     next();
   } else {
     res.status(403).json({ message: "Not authorized as an admin" });

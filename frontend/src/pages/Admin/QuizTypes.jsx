@@ -30,6 +30,12 @@ const QuizTypes = () => {
   return (
     <section>
       <h2 className="text-xl font-bold my-4 underline">Kérdőívek:</h2>
+      <p className="my-4 text-left text-gray-700">
+        Ha a <strong>Kérdések megtekintésére</strong> kattintasz, az
+        átirányított oldalon hozzáadhatod, szerkesztheted vagy törölheted a
+        kérdőív kérdéseit, illetve az egész kérdőívet törölheted az
+        adatbázisból.
+      </p>
       <CardContainer
         items={data}
         buttonText="Kérdések megtekintése"
