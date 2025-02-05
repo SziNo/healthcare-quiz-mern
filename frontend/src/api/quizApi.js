@@ -36,6 +36,15 @@ export const getQuizByTypeAdmin = async (type) => {
   }
 };
 
+export const addQuestion = async (data) => {
+  const response = await axios.post(
+    `${url}/api/quizzes/admin/add-question`,
+    data,
+    config
+  );
+  return response.data;
+};
+
 export const deleteQuestion = async (questionId) => {
   try {
     const response = await axios.post(

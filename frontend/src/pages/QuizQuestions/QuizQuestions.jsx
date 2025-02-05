@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import AddNewQuestion from "./AddNewQuestion";
 
 const QuizQuestions = () => {
   const { type } = useParams();
@@ -130,41 +131,47 @@ const QuizQuestions = () => {
         </div>
       ))}
 
-      <div className="flex justify-center mt-8 mb-4">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button
-              variant="destructive"
-              size="lg"
-              className="uppercase"
-              onClick={handleDeleteQuiz}
-            >
-              Kérdőív törlése
-            </Button>
-          </AlertDialogTrigger>
-          {deleteItem && deleteItem.type === "quiz" && (
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Biztosan törlöd a kérdőívet?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Ezzel véglegesen kitörlöd a kérdőívet és az összes
-                  hozzátartozó kérdést. Biztos hogy folytatod?
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel onClick={() => setDeleteItem(null)}>
-                  Mégse
-                </AlertDialogCancel>
-                <AlertDialogAction onClick={confirmDelete}>
-                  Törlés
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          )}
-        </AlertDialog>
-      </div>
+      <section className="flex flex-col md:flex-row justify-around items-center mt-8 mb-4 space-y-4 md:space-y-0 md:space-x-4">
+        <div className="flex-1 flex justify-center">
+          <AddNewQuestion type={type} />
+        </div>
+
+        <div className="flex-1 flex justify-center">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="lg"
+                className="uppercase"
+                onClick={handleDeleteQuiz}
+              >
+                Kérdőív törlése
+              </Button>
+            </AlertDialogTrigger>
+            {deleteItem && deleteItem.type === "quiz" && (
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Biztosan törlöd a kérdőívet?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Ezzel véglegesen kitörlöd a kérdőívet és az összes
+                    hozzátartozó kérdést. Biztos hogy folytatod?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setDeleteItem(null)}>
+                    Mégse
+                  </AlertDialogCancel>
+                  <AlertDialogAction onClick={confirmDelete}>
+                    Törlés
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            )}
+          </AlertDialog>
+        </div>
+      </section>
     </div>
   );
 };

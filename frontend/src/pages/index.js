@@ -1,4 +1,5 @@
-import { Admin, QuizQuestions } from "./Admin";
+import { Admin } from "./Admin";
+import { QuizQuestions } from "./QuizQuestions";
 import Register from "./register";
 import Login from "./login";
 import Home from "./Home/Home";
