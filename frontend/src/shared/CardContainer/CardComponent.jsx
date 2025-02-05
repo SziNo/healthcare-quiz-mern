@@ -2,7 +2,16 @@ import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const CardComponent = ({ title, path, type, imageUrl, buttonText }) => {
+const CardComponent = ({
+  title,
+  path,
+  type,
+  imageUrl,
+  buttonText,
+  id = null,
+  optionalFunc = null,
+  optionalButtonText = null,
+}) => {
   return (
     <Card className="flex flex-col p-2">
       <div className="w-full h-48 lg:h-60 overflow-hidden rounded-t-lg">
@@ -22,6 +31,15 @@ const CardComponent = ({ title, path, type, imageUrl, buttonText }) => {
             {buttonText}
           </Button>
         </Link>
+        {optionalFunc && (
+          <Button
+            variant="grogu"
+            className="w-full mt-2"
+            onClick={() => optionalFunc(id)}
+          >
+            {optionalButtonText}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

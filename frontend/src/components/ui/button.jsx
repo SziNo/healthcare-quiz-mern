@@ -19,6 +19,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         sky: "bg-sky-500 text-white shadow hover:bg-sky-600",
+        grogu: "bg-grogu text-white shadow hover:bg-grogu-600",
       },
       size: {
         default: "h-9 px-4 py-2",

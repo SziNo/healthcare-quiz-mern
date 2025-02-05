@@ -36,6 +36,18 @@ module.exports = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        grogu: {
+          DEFAULT: "#01796f",
+          100: "#e0f7f4",
+          200: "#b2e8e0",
+          300: "#80dbcc",
+          400: "#4dceb8",
+          500: "#1ac1a3",
+          600: "#019a83",
+          700: "#01796f",
+          800: "#015b52",
+          900: "#00403c",
+        },
         sky: {
           500: "#0ea5e9",
           600: "#0284c7",
