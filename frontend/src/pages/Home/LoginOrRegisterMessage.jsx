@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const LoginOrRegisterMessage = () => (
-  <div className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-200 p-6 rounded-lg shadow-lg text-center">
+  <section className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-200 p-6 rounded-lg shadow-lg text-center">
     <p className="text-lg font-medium mb-4 text-gray-700">
       Kérjük, hogy a kérdőívek kitöltéséhez{" "}
       <Link
@@ -20,7 +19,7 @@ const LoginOrRegisterMessage = () => (
       </Link>
       .
     </p>
-  </div>
+  </section>
 );
 
 export default LoginOrRegisterMessage;

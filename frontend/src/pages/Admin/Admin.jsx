@@ -1,7 +1,7 @@
 import QuizTypes from "./QuizTypes";
 import AddNewQuiz from "./AddNewQuiz";
 import { useNavigate } from "react-router-dom";
-import { LinkButton } from "../../shared";
+import { LinkButton } from "@/shared";
 
 const Admin = () => {
   const navigate = useNavigate();

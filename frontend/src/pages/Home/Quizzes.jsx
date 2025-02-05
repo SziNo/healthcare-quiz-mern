@@ -17,10 +17,10 @@ const Quizzes = () => {
   }
 
   return (
-    <div>
+    <section>
       <h2 className="text-xl font-bold mb-4">Kérdőívek</h2>
       <CardContainer items={data} buttonText="Kérdőív kezdése" path="/quiz" />
-    </div>
+    </section>
   );
 };
 

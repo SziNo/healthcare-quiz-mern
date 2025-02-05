@@ -14,11 +14,11 @@ const CardComponent = ({ title, path, type, imageUrl, buttonText }) => {
         />
       </div>
       <CardHeader>
-        <CardTitle className="md:text-lg">{`${title} kérdőív`}</CardTitle>
+        <CardTitle className="md:text-lg capitalize">{`${title} kérdőív`}</CardTitle>
       </CardHeader>
       <CardFooter className="flex flex-col justify-between items-center">
         <Link to={`${path}/${type}`} className="w-full">
-          <Button variant="default" className="capitalize w-full">
+          <Button variant="default" className="w-full">
             {buttonText}
           </Button>
         </Link>

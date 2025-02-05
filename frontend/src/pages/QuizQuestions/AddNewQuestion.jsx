@@ -49,7 +49,7 @@ const AddNewQuestion = ({ type }) => {
   };
 
   return (
-    <div className="mb-4 w-full sm:w-3/4 lg:w-2/3">
+    <section className="mb-4 w-full sm:w-3/4 lg:w-2/3">
       <h1 className="text-2xl font-bold mb-4">Új kérdés hozzáadása</h1>
 
       <Form {...form}>
@@ -115,7 +115,7 @@ const AddNewQuestion = ({ type }) => {
           )}
         </form>
       </Form>
-    </div>
+    </section>
   );
 };
 

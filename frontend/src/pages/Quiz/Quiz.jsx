@@ -54,6 +54,7 @@ const Quiz = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (data?.length > 0) {
       if (data[0].questions.length !== responses.length) {
         console.error("Mismatch in the number of questions and responses.");
