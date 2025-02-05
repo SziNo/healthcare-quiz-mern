@@ -83,6 +83,26 @@ export const addQuestion = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Question added successfully", quiz });
 });
 
+// @desc    Update a question in a quiz
+// @route   PUT /api/quizzes/admin/update-question
+// @access  Private/Admin
+export const updateQuestion = asyncHandler(async (req, res) => {
+  const { questionId, question } = req.body;
+
+  const quiz = await Quiz.findOne({ "questions._id": questionId });
+  if (!quiz) {
+    res.status(404).json({ message: "Question not found" });
+    return;
+  }
+
+  const questionToUpdate = quiz.questions.id(questionId);
+  questionToUpdate.question = question;
+
+  await quiz.save();
+
+  res.status(200).json({ message: "Question updated successfully", quiz });
+});
+
 // @desc    Delete a question from a quiz
 // @route   POST /api/quizzes/admin/delete-question
 // @access  Private/Admin

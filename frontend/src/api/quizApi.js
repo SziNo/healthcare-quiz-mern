@@ -54,6 +54,15 @@ export const addQuestion = async (data) => {
   return response.data;
 };
 
+export const updateQuestion = async (data) => {
+  const response = await axios.put(
+    `${url}/api/quizzes/admin/update-question`,
+    data,
+    config
+  );
+  return response.data;
+};
+
 export const deleteQuestion = async (questionId) => {
   try {
     const response = await axios.post(

@@ -5,9 +5,10 @@ import {
   getQuizByTypeAdmin,
   deleteQuestion,
   deleteQuiz,
+  updateQuestion,
 } from "../../api/quizApi";
 import { Button } from "@/components/ui/button";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +28,8 @@ const QuizQuestions = () => {
   const queryClient = useQueryClient();
   const [questions, setQuestions] = useState([]);
   const [deleteItem, setDeleteItem] = useState(null);
+  const [editItem, setEditItem] = useState(null);
+  const [editedText, setEditedText] = useState("");
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["quiz", type],
@@ -46,6 +49,15 @@ const QuizQuestions = () => {
     },
   });
 
+  const updateQuestionMutation = useMutation({
+    mutationFn: updateQuestion,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["quiz", type]);
+      setEditItem(null);
+      setEditedText("");
+    },
+  });
+
   const deleteQuizMutation = useMutation({
     mutationFn: (quizType) => deleteQuiz(quizType),
     onSuccess: () => {
@@ -56,6 +68,23 @@ const QuizQuestions = () => {
 
   const handleDeleteQuestion = (id) => {
     setDeleteItem({ type: "question", id });
+  };
+
+  const handleEditQuestion = (question) => {
+    setEditItem(question._id);
+    setEditedText(question.question);
+  };
+
+  const handleSaveQuestion = () => {
+    updateQuestionMutation.mutate({
+      questionId: editItem,
+      question: editedText,
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditItem(null);
+    setEditedText("");
   };
 
   const handleDeleteQuiz = () => {
@@ -92,9 +121,9 @@ const QuizQuestions = () => {
           key={question._id}
           className="flex items-center gap-3 px-2 py-4 bg-gray-100 odd:bg-white even:bg-gray-60 shadow-md"
         >
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <div className="w-8 h-8">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
                 <Button
                   variant="destructive"
                   size="icon"
@@ -102,35 +131,66 @@ const QuizQuestions = () => {
                 >
                   <FaTrashAlt className="w-full h-full" />
                 </Button>
+              </AlertDialogTrigger>
+              {deleteItem &&
+                deleteItem.id === question._id &&
+                deleteItem.type === "question" && (
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Biztosan törlöd a kérdést?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Ezzel véglegesen kitörlöd a kérdést. Biztos vagy benne?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel onClick={() => setDeleteItem(null)}>
+                        Mégse
+                      </AlertDialogCancel>
+                      <AlertDialogAction onClick={confirmDelete}>
+                        Törlés
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                )}
+            </AlertDialog>
+            {editItem === question._id ? (
+              <div className="flex space-x-2">
+                <Button variant="sky" size="icon" onClick={handleSaveQuestion}>
+                  <FaSave className="w-full h-full" />
+                </Button>
+                <Button
+                  variant="default"
+                  size="icon"
+                  onClick={handleCancelEdit}
+                >
+                  <FaTimes className="w-full h-full" />
+                </Button>
               </div>
-            </AlertDialogTrigger>
-            {deleteItem &&
-              deleteItem.id === question._id &&
-              deleteItem.type === "question" && (
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Biztosan törlöd a kérdést?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Ezzel véglegesen kitörlöd a kérdést. Biztos vagy benne?
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel onClick={() => setDeleteItem(null)}>
-                      Mégse
-                    </AlertDialogCancel>
-                    <AlertDialogAction onClick={confirmDelete}>
-                      Törlés
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              )}
-          </AlertDialog>
+            ) : (
+              <Button
+                variant="sky"
+                size="icon"
+                onClick={() => handleEditQuestion(question)}
+              >
+                <FaEdit className="w-full h-full" />
+              </Button>
+            )}
+          </div>
 
-          <span className="flex-grow block font-semibold md:text-lg">
-            {question.question}
-          </span>
+          {editItem === question._id ? (
+            <input
+              type="text"
+              value={editedText}
+              onChange={(e) => setEditedText(e.target.value)}
+              className="flex-grow p-2 border border-gray-300 rounded-md"
+            />
+          ) : (
+            <span className="flex-grow block font-semibold md:text-lg">
+              {question.question}
+            </span>
+          )}
         </div>
       ))}
 
