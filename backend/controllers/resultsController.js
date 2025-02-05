@@ -1,10 +1,12 @@
+import asyncHandler from "express-async-handler";
+import Quiz from "../models/quizModel.js";
 import Result from "../models/resultModel.js";
 import User from "../models/userModel.js";
-import asyncHandler from "express-async-handler";
 import {
   sendPatientEmail,
   sendAdminNotification,
 } from "../utils/emailConfig.js";
+import { Parser } from "json2csv";
 
 // @desc    Save quiz results
 // @route   POST /api/results/save
@@ -16,14 +18,11 @@ export const saveResults = asyncHandler(async (req, res) => {
   const result = new Result({ title, type, user, results });
   await result.save();
 
-  // Send email to patient
   await sendPatientEmail(req.user.email, results);
 
-  // Find admin users
   const admins = await User.find({ isAdmin: true }).select("email");
   const adminEmails = admins.map((admin) => admin.email);
 
-  // Send notification to admins
   await sendAdminNotification(adminEmails, results);
 
   res.status(201).json({ message: "Results saved successfully", result });
@@ -35,4 +34,101 @@ export const saveResults = asyncHandler(async (req, res) => {
 export const deleteAllResults = asyncHandler(async (req, res) => {
   await Result.deleteMany({});
   res.status(200).json({ message: "All quiz results deleted successfully" });
+});
+
+// @desc Get statistics for a quiz type
+// @route POST /api/admin/statistics
+// @access Private/Admin
+export const getStatistics = asyncHandler(async (req, res) => {
+  const { quizType } = req.body;
+
+  const quiz = await Quiz.findOne({ type: quizType });
+
+  if (!quiz) {
+    res.status(404);
+    throw new Error("Quiz type not found");
+  }
+
+  const results = await Result.find({ type: quizType });
+
+  let allAnswers = [];
+
+  // Aggregate all answers
+  results.forEach((result) => {
+    result.results.forEach((answerObj) => {
+      allAnswers.push(answerObj.answer);
+    });
+  });
+
+  // Calculate the total number of responses and the average score
+  const totalResponses = allAnswers.length;
+  const totalScore = allAnswers.reduce((acc, val) => acc + val, 0);
+  const averageScore =
+    totalResponses > 0 ? (totalScore / totalResponses).toFixed(1) : null;
+  const totalSubmissions = results.length;
+
+  const statistics = {
+    title: quiz.title,
+    totalResponses,
+    averageScore: parseFloat(averageScore),
+    totalSubmissions,
+  };
+
+  res.status(200).json(statistics);
+});
+
+// @desc Export statistics for a quiz type
+// @route POST /api/admin/statistics/export
+// @access Private/Admin
+export const exportStatistics = asyncHandler(async (req, res) => {
+  const { quizType } = req.body;
+
+  const quiz = await Quiz.findOne({ type: quizType });
+
+  if (!quiz) {
+    res.status(404);
+    throw new Error("Quiz type not found");
+  }
+
+  const results = await Result.find({ type: quizType });
+  let allAnswers = [];
+
+  results.forEach((result) => {
+    result.results.forEach((answerObj) => {
+      // Add a check to ensure answer is a number
+      if (typeof answerObj.answer === "number") {
+        allAnswers.push(answerObj.answer);
+      } else {
+        console.error("Non-numeric answer encountered:", answerObj.answer);
+      }
+    });
+  });
+
+  const totalResponses = allAnswers.length;
+  const totalScore = allAnswers.reduce((acc, val) => acc + val, 0);
+  const averageScore =
+    totalResponses > 0 ? (totalScore / totalResponses).toFixed(1) : null;
+  const numberOfSubmissions = results.length; // Number of documents in results
+
+  const statistics = {
+    title: quiz.title,
+    totalResponses,
+    averageScore: parseFloat(averageScore),
+    numberOfSubmissions,
+  };
+
+  // JSON to CSV
+  const fields = [
+    "title",
+    "totalResponses",
+    "averageScore",
+    "numberOfSubmissions",
+  ];
+  const json2csvParser = new Parser({ fields });
+  const csv = json2csvParser.parse([statistics]);
+
+  // Set response headers and send the CSV file
+  res.header("Content-Type", "text/csv");
+  res.attachment(`statistics-${quizType}.csv`);
+  res.send(csv);
 });
