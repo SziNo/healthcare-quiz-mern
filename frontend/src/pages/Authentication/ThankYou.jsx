@@ -1,6 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { LinkButton } from "@/shared";
 
 const ThankYou = () => {
   return (
@@ -9,9 +7,7 @@ const ThankYou = () => {
         Köszönjük, hogy időt szánt a betegelégedettségi kérdőívünk kitöltésére,
         véleménye fontos számunkra!
       </h1>
-      <Link to="/">
-        <Button size="lg">Vissza a kezdőlapra</Button>
-      </Link>
+      <LinkButton to="/" buttonText="Vissza a kezdőlapra" size="lg" />
     </div>
   );
 };

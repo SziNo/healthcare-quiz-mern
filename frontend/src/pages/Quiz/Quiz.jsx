@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { getQuizByType } from "@/api/quizApi";
 import { saveResults } from "@/api/resultsApi";
 import QuizRadioField from "./QuizRadioField";
+import { LinkButton } from "../../shared";
 
 const Quiz = () => {
   const { type } = useParams();
@@ -106,15 +107,23 @@ const Quiz = () => {
             onValueChange={handleValueChange}
           />
         ))}
-
-        <Button
-          type="submit"
-          size="lg"
-          className="my-6"
-          disabled={mutation.isLoading}
-        >
-          {mutation.isLoading ? "Mentés..." : "Elküldés"}
-        </Button>
+        <div className="flex gap-3">
+          <LinkButton
+            to="/"
+            buttonText="Vissza"
+            size="lg"
+            className="flex justify-center items-center"
+          />
+          <Button
+            type="submit"
+            size="lg"
+            className="my-6"
+            variant="sky"
+            disabled={mutation.isLoading}
+          >
+            {mutation.isLoading ? "Mentés..." : "Elküldés"}
+          </Button>
+        </div>
 
         {mutation.isError && (
           <div className="text-red-500 mt-4">

@@ -97,6 +97,7 @@ const AddNewQuestion = ({ type }) => {
               type="submit"
               size="lg"
               className="uppercase"
+              variant="sky"
               disabled={addQuestionMutation.isLoading}
             >
               {addQuestionMutation.isLoading

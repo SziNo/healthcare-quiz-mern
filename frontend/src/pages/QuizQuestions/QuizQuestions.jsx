@@ -21,6 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import AddNewQuestion from "./AddNewQuestion";
+import { LinkButton } from "@/shared";
 
 const QuizQuestions = () => {
   const { type } = useParams();
@@ -117,7 +118,7 @@ const QuizQuestions = () => {
       <h2 className="font-bold text-2xl py-6">{data[0].title} kérdőív</h2>
 
       {questions.map((question) => (
-        <div
+        <section
           key={question._id}
           className="flex items-center gap-3 px-2 py-4 bg-gray-100 odd:bg-white even:bg-gray-60 shadow-md"
         >
@@ -191,7 +192,7 @@ const QuizQuestions = () => {
               {question.question}
             </span>
           )}
-        </div>
+        </section>
       ))}
 
       <section className="flex flex-col md:flex-row justify-center md:justify-between items-start mt-8 mb-4 space-y-4 md:space-y-0 md:space-x-4">
@@ -243,6 +244,13 @@ const QuizQuestions = () => {
           </AlertDialog>
         </div>
       </section>
+
+      <LinkButton
+        to="/admin"
+        buttonText="Vissza"
+        size="lg"
+        className="flex justify-center items-center"
+      />
     </div>
   );
 };

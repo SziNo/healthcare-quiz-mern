@@ -18,7 +18,7 @@ const CardComponent = ({ title, path, type, imageUrl, buttonText }) => {
       </CardHeader>
       <CardFooter className="flex flex-col justify-between items-center">
         <Link to={`${path}/${type}`} className="w-full">
-          <Button variant="default" className="w-full">
+          <Button variant="default" className="capitalize w-full">
             {buttonText}
           </Button>
         </Link>
