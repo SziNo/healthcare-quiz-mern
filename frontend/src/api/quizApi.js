@@ -54,6 +54,20 @@ export const addQuestion = async (data) => {
   return response.data;
 };
 
+export const updateQuiz = async (payload) => {
+  try {
+    const response = await axios.put(
+      `${url}/api/quizzes/admin/update-quiz`,
+      payload,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating quiz:", error);
+    throw error;
+  }
+};
+
 export const updateQuestion = async (data) => {
   const response = await axios.put(
     `${url}/api/quizzes/admin/update-question`,

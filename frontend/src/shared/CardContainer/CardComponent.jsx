@@ -35,7 +35,7 @@ const CardComponent = ({
           <Button
             variant="grogu"
             className="w-full mt-2"
-            onClick={() => optionalFunc(id)}
+            onClick={() => optionalFunc({ _id: id, title, type })}
           >
             {optionalButtonText}
           </Button>
