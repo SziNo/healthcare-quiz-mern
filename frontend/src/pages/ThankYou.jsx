@@ -10,7 +10,7 @@ const ThankYou = () => {
         véleménye fontos számunkra!
       </h1>
       <Link to="/">
-        <Button className="text-lg">Vissza a kezdőlapra</Button>
+        <Button size="lg">Vissza a kezdőlapra</Button>
       </Link>
     </div>
   );

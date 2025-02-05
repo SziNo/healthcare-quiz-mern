@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getQuizByTypeAdmin } from "../../api/quizApi";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  getQuizByTypeAdmin,
+  deleteQuestion,
+  deleteQuiz,
+} from "../../api/quizApi";
 import { Button } from "@/components/ui/button";
 import { FaTrashAlt } from "react-icons/fa";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const QuizQuestions = () => {
   const { type } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [questions, setQuestions] = useState([]);
+  const [deleteItem, setDeleteItem] = useState(null);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["quiz", type],
@@ -21,14 +38,36 @@ const QuizQuestions = () => {
     }
   }, [data]);
 
+  const deleteQuestionMutation = useMutation({
+    mutationFn: (questionId) => deleteQuestion(questionId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["quiz", type]);
+    },
+  });
+
+  const deleteQuizMutation = useMutation({
+    mutationFn: (quizType) => deleteQuiz(quizType),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["quiz"]);
+      navigate("/admin");
+    },
+  });
+
   const handleDeleteQuestion = (id) => {
-    console.log(`Delete question with ID ${id}`);
-    // Add your deletion logic here
+    setDeleteItem({ type: "question", id });
   };
 
   const handleDeleteQuiz = () => {
-    console.log(`Delete quiz with type ${type}`);
-    // Add your deletion logic here
+    setDeleteItem({ type: "quiz", id: type });
+  };
+
+  const confirmDelete = () => {
+    if (deleteItem.type === "question") {
+      deleteQuestionMutation.mutate(deleteItem.id);
+    } else {
+      deleteQuizMutation.mutate(deleteItem.id);
+    }
+    setDeleteItem(null);
   };
 
   if (isLoading) {
@@ -52,17 +91,39 @@ const QuizQuestions = () => {
           key={question._id}
           className="flex items-center gap-3 px-2 py-4 bg-gray-100 odd:bg-white even:bg-gray-60 shadow-md"
         >
-          <div className="flex items-center gap-2">
-            <Button
-              variant="destructive"
-              size="icon"
-              onClick={() => handleDeleteQuestion(question._id)}
-            >
-              <FaTrashAlt />
-            </Button>
-
-            {/* More icon(s) in the future */}
-          </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="icon"
+                onClick={() => handleDeleteQuestion(question._id)}
+              >
+                <FaTrashAlt />
+              </Button>
+            </AlertDialogTrigger>
+            {deleteItem &&
+              deleteItem.id === question._id &&
+              deleteItem.type === "question" && (
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Biztosan törlöd a kérdést?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Ezzel véglegesen kitörlöd a kérdést. Biztos vagy benne?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel onClick={() => setDeleteItem(null)}>
+                      Mégse
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={confirmDelete}>
+                      Törlés
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              )}
+          </AlertDialog>
           <span className="flex-grow block font-semibold md:text-lg">
             {question.question}
           </span>
@@ -70,9 +131,39 @@ const QuizQuestions = () => {
       ))}
 
       <div className="flex justify-center mt-8 mb-4">
-        <Button variant="destructive" size="lg" onClick={handleDeleteQuiz}>
-          Kérdőív törlése
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="destructive"
+              size="lg"
+              className="uppercase"
+              onClick={handleDeleteQuiz}
+            >
+              Kérdőív törlése
+            </Button>
+          </AlertDialogTrigger>
+          {deleteItem && deleteItem.type === "quiz" && (
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Biztosan törlöd a kérdőívet?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  Ezzel véglegesen kitörlöd a kérdőívet és az összes
+                  hozzátartozó kérdést. Biztos hogy folytatod?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel onClick={() => setDeleteItem(null)}>
+                  Mégse
+                </AlertDialogCancel>
+                <AlertDialogAction onClick={confirmDelete}>
+                  Törlés
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          )}
+        </AlertDialog>
       </div>
     </div>
   );

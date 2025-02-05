@@ -83,6 +83,25 @@ export const addQuestion = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Question added successfully", quiz });
 });
 
+// @desc    Delete a question from a quiz
+// @route   POST /api/quizzes/admin/delete-question
+// @access  Private/Admin
+export const deleteQuestion = asyncHandler(async (req, res) => {
+  const { questionId } = req.body;
+
+  const quiz = await Quiz.findOne({ "questions._id": questionId });
+  if (!quiz) {
+    console.error(`Question ID '${questionId}' not found`);
+    res.status(404).json({ message: "Question not found" });
+    return;
+  }
+
+  quiz.questions.pull({ _id: questionId });
+  await quiz.save();
+
+  res.status(200).json({ message: "Question deleted successfully", quiz });
+});
+
 // @desc    Delete a quiz type and all its questions
 // @route   DELETE /api/quizzes/:type
 // @access  Private/Admin
@@ -100,23 +119,4 @@ export const deleteQuizType = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json({ message: "Quiz type and all its questions deleted successfully" });
-});
-
-// @desc    Delete a question from a quiz
-// @route   DELETE /api/quizzes/delete-question
-// @access  Private/Admin
-export const deleteQuestion = asyncHandler(async (req, res) => {
-  const { quizType, questionId } = req.body;
-
-  const quiz = await Quiz.findOne({ type: quizType });
-  if (!quiz) {
-    res.status(404);
-    throw new Error("Quiz not found");
-  }
-
-  // Use the pull method to remove the question by its ID
-  quiz.questions.pull({ _id: questionId });
-  await quiz.save();
-
-  res.status(200).json({ message: "Question deleted successfully", quiz });
 });

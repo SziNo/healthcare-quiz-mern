@@ -17,7 +17,7 @@ router.get("/:type", getQuizzesByType);
 router.get("/admin/:type", protect, admin, getQuizzesByTypeAdmin);
 router.post("/admin/add-quiz", protect, admin, addQuizType);
 router.post("/admin/add-question", protect, admin, addQuestion);
+router.post("/admin/delete-question", protect, admin, deleteQuestion); // body parsing not suppoerted in DELETE requests
 router.delete("/admin/:type", protect, admin, deleteQuizType);
-router.delete("/admin/delete-question", protect, admin, deleteQuestion);
 
 export default router;
