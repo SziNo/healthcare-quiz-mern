@@ -17,14 +17,14 @@ const QuizTypes = () => {
   }
 
   return (
-    <div>
+    <section>
       <h2 className="text-xl font-bold my-4 underline">Kérdőívek:</h2>
       <CardContainer
         items={data}
         buttonText="Kérdések megtekintése"
         path="/admin/quiz"
       />
-    </div>
+    </section>
   );
 };
 
