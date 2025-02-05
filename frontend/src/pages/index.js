@@ -1,9 +1,7 @@
 import { Admin } from "./Admin";
 import { QuizQuestions } from "./QuizQuestions";
-import Register from "./register";
-import Login from "./login";
-import Home from "./Home/Home";
-import Quiz from "./Quiz/Quiz";
-import ThankYou from "./ThankYou";
+import { Register, Login, ThankYou } from "./Authentication";
+import { Home } from "./Home";
+import { Quiz } from "./Quiz";
 
 export { Admin, QuizQuestions, Register, Login, Home, Quiz, ThankYou };

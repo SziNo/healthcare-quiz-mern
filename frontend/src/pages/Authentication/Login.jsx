@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { loginSchema } from "../validation/loginSchema";
+import { loginSchema } from "@/validation/loginSchema";
 import { loginUser } from "@/api/userApi";
 import useStore from "@/store/zustandStore";
 

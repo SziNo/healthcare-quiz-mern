@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import QuizRadioField from "./QuizRadioField";
 import { Button } from "@/components/ui/button";
 import { getQuizByType } from "@/api/quizApi";
 import { saveResults } from "@/api/resultsApi";
+import QuizRadioField from "./QuizRadioField";
 
 const Quiz = () => {
   const { type } = useParams();
@@ -44,7 +44,7 @@ const Quiz = () => {
     mutationFn: saveResults,
     onSuccess: (data) => {
       console.log("Results saved successfully:", data);
-      navigate("/thank-you"); // Replace with the desired route
+      navigate("/thank-you");
     },
     onError: (error) => {
       console.error("Failed to save results:", error);

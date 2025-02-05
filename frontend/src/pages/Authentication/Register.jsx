@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { registerSchema } from "../validation/validationSchema";
+import { registerSchema } from "@/validation/validationSchema";
 import { registerUser } from "@/api/userApi";
 
 const Register = () => {
