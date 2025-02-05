@@ -20,7 +20,12 @@ const StatisticGenerate = () => {
     queryFn: getAllQuizzes,
   });
 
-  const { data: statistics, refetch } = useQuery({
+  const {
+    data: statistics,
+    refetch,
+    isError: isStatisticsError,
+    error: statisticsError,
+  } = useQuery({
     queryKey: ["statistics", selectedQuizType],
     queryFn: () => getStatistics(selectedQuizType),
     enabled: false, // Disable automatic fetching
@@ -65,6 +70,10 @@ const StatisticGenerate = () => {
 
   if (isLoadingQuizzes) {
     return <div>Loading quizzes...</div>;
+  }
+
+  if (isStatisticsError) {
+    return <div>Error fetching statistics: {statisticsError.message}</div>;
   }
 
   return (

@@ -42,7 +42,6 @@ const Register = () => {
   const mutation = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      console.log("Registration successful:", data);
       form.reset();
       navigate("/login");
     },

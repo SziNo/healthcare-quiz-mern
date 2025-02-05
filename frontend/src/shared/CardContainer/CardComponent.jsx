@@ -8,9 +8,9 @@ const CardComponent = ({
   type,
   imageUrl,
   buttonText,
-  id = null,
-  optionalFunc = null,
-  optionalButtonText = null,
+  id,
+  optionalFunc,
+  optionalButtonText,
 }) => {
   return (
     <Card className="flex flex-col p-2">

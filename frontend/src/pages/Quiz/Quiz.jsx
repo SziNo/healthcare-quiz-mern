@@ -43,8 +43,7 @@ const Quiz = () => {
 
   const mutation = useMutation({
     mutationFn: saveResults,
-    onSuccess: (data) => {
-      console.log("Results saved successfully:", data);
+    onSuccess: () => {
       navigate("/thank-you");
     },
     onError: (error) => {

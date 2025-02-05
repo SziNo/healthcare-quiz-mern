@@ -12,7 +12,6 @@ const QuizTypes = () => {
   const [editingQuiz, setEditingQuiz] = useState(null);
 
   const handleEditQuiz = (quiz) => {
-    console.log("Editing Quiz:", quiz);
     setEditingQuiz(quiz);
   };
 

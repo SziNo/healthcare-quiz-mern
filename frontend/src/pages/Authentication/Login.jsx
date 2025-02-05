@@ -32,8 +32,6 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      console.log("Login successful:", data);
-
       localStorage.setItem("token", data.token);
 
       setIsLoggedIn(true);

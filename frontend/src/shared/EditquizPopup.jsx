@@ -10,7 +10,6 @@ const EditQuizPopup = ({ quiz, onClose }) => {
 
   useEffect(() => {
     if (quiz) {
-      console.log("Popup Opened with Quiz Data:", quiz);
       setTitle(quiz.title || "");
       setType(quiz.type || "");
     }
@@ -20,7 +19,6 @@ const EditQuizPopup = ({ quiz, onClose }) => {
     mutationFn: updateQuiz,
     onSuccess: () => {
       queryClient.invalidateQueries("quizzes");
-      console.log("Quiz Updated Successfully");
       onClose();
     },
     onError: (error) => {
@@ -30,7 +28,6 @@ const EditQuizPopup = ({ quiz, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting Update with Data:", { id: quiz._id, title, type });
     mutation.mutate({ id: quiz._id, title, type });
   };
 
