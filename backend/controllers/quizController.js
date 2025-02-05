@@ -28,6 +28,20 @@ export const getQuizzesByType = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get quizzes by type (Admin)
+// @route   GET /api/quizzes/admin/:type
+// @access  Private/Admin
+export const getQuizzesByTypeAdmin = asyncHandler(async (req, res) => {
+  const { type } = req.params;
+  const quiz = await Quiz.find({ type });
+
+  if (quiz) {
+    res.status(200).json(quiz);
+  } else {
+    res.status(404).json({ message: "Quiz type not found!" });
+  }
+});
+
 // @desc    Add a new quiz type
 // @route   POST /api/quizzes/add-quiz
 // @access  Private/Admin

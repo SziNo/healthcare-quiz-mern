@@ -206,7 +206,7 @@ const Register = () => {
           )}
 
           <div className="flex">
-            <Button type="submit" disabled={mutation.isPending}>
+            <Button type="submit" size="lg" disabled={mutation.isPending}>
               {mutation.isPending
                 ? "Regisztráció folyamatban..."
                 : "Regisztráció"}

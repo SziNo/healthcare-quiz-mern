@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllQuizzes,
   getQuizzesByType,
+  getQuizzesByTypeAdmin,
   addQuizType,
   addQuestion,
   deleteQuizType,
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.get("/", getAllQuizzes);
 router.get("/:type", getQuizzesByType);
+router.get("/admin/:type", protect, admin, getQuizzesByTypeAdmin);
 router.post("/admin/add-quiz", protect, admin, addQuizType);
 router.post("/admin/add-question", protect, admin, addQuestion);
 router.delete("/admin/:type", protect, admin, deleteQuizType);

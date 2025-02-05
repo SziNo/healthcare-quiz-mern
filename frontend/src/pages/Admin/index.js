@@ -1,5 +1,5 @@
 import Admin from "./Admin";
-import Results from "./QuizQuestions";
-import QuizQuestion from "./QuizQuestion";
+import QuizTypes from "./QuizTypes";
+import QuizQuestions from "./QuizQuestions";
 
-export { Admin, Results, QuizQuestion };
+export { Admin, QuizTypes, QuizQuestions };

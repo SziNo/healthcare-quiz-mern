@@ -97,7 +97,7 @@ const Quiz = () => {
   return (
     <div className="min-h-[calc(100vh-8rem)] p-4">
       <form onSubmit={handleSubmit}>
-        <h2 className="text-2xl py-6">{data[0].title}</h2>
+        <h2 className="font-bold text-2xl py-6">{data[0].title} kérdőív</h2>
 
         {data[0].questions.map((question) => (
           <QuizRadioField
@@ -107,8 +107,13 @@ const Quiz = () => {
           />
         ))}
 
-        <Button type="submit" className="my-6" disabled={mutation.isLoading}>
-          {mutation.isLoading ? "Saving..." : "Submit"}
+        <Button
+          type="submit"
+          size="lg"
+          className="my-6"
+          disabled={mutation.isLoading}
+        >
+          {mutation.isLoading ? "Mentés..." : "Elküldés"}
         </Button>
 
         {mutation.isError && (

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Navbar, Footer } from "./layout";
 import {
   Admin,
-  QuizQuestion,
+  QuizQuestions,
   Register,
   Login,
   Home,
@@ -24,7 +24,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/quiz/:type" element={<QuizQuestion />} />
+        <Route path="/admin/quiz/:type" element={<QuizQuestions />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/quiz/:type" element={<Quiz />} />
